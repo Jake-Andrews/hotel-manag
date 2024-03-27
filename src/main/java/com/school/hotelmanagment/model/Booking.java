@@ -2,14 +2,23 @@ package com.school.hotelmanagment.model;
 
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Booking {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     private String name;
     private String phoneNumber;
     private String email;
 
-    public Booking() {
+    // exists for jpa
+    protected Booking() {
     }
 
     public Booking(int id, String name, String phoneNumber, String email) {

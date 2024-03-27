@@ -2,14 +2,22 @@ package com.school.hotelmanagment.model;
 
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Room {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     private int roomNumber;
     private String type;
     private double price;
 
-    public Room() {
+    protected Room() {
     }
 
     public Room(int id, int roomNumber, String type, double price) {

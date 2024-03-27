@@ -1,9 +1,17 @@
 package com.school.hotelmanagment.model;
 
-import java.util.Date;
 import java.util.Objects;
+import java.util.Date;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Customer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     private int customerId;
@@ -11,7 +19,7 @@ public class Customer {
     private Date startDate;
     private Date endDate;
 
-    public Customer() {
+    protected Customer() {
     }
 
     public Customer(int id, int customerId, int roomId, Date startDate, Date endDate) {
