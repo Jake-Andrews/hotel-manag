@@ -1,12 +1,13 @@
 package com.school.hotelmanagment.model;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.Date;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Customer {
@@ -14,20 +15,30 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    private int customerId;
-    private int roomId;
-    private Date startDate;
-    private Date endDate;
+    private String name;
+    private String phoneNumber;
+    private String email;
 
-    protected Customer() {
+    // mappedBy = "customer" indicates that the customer field in the
+    // Booking entity owns the relationship. This means that the Booking
+    // table in the database will contain a foreign key column pointing to the
+    // Customer table
+
+    // customer class variable was created instead of customerId, since the ORM
+    // Object Relational Mapping needs objects to be used in the relationships not
+    // fields
+    @OneToMany(mappedBy = "customer")
+    private List<Booking> bookings;
+
+    public Customer() {
     }
 
-    public Customer(int id, int customerId, int roomId, Date startDate, Date endDate) {
+    public Customer(int id, String name, String phoneNumber, String email, List<Booking> bookings) {
         this.id = id;
-        this.customerId = customerId;
-        this.roomId = roomId;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.bookings = bookings;
     }
 
     public int getId() {
@@ -38,36 +49,36 @@ public class Customer {
         this.id = id;
     }
 
-    public int getCustomerId() {
-        return this.customerId;
+    public String getName() {
+        return this.name;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getRoomId() {
-        return this.roomId;
+    public String getPhoneNumber() {
+        return this.phoneNumber;
     }
 
-    public void setRoomId(int roomId) {
-        this.roomId = roomId;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public Date getStartDate() {
-        return this.startDate;
+    public String getEmail() {
+        return this.email;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public Date getEndDate() {
-        return this.endDate;
+    public List<Booking> getBookings() {
+        return this.bookings;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
     }
 
     public Customer id(int id) {
@@ -75,23 +86,23 @@ public class Customer {
         return this;
     }
 
-    public Customer customerId(int customerId) {
-        setCustomerId(customerId);
+    public Customer name(String name) {
+        setName(name);
         return this;
     }
 
-    public Customer roomId(int roomId) {
-        setRoomId(roomId);
+    public Customer phoneNumber(String phoneNumber) {
+        setPhoneNumber(phoneNumber);
         return this;
     }
 
-    public Customer startDate(Date startDate) {
-        setStartDate(startDate);
+    public Customer email(String email) {
+        setEmail(email);
         return this;
     }
 
-    public Customer endDate(Date endDate) {
-        setEndDate(endDate);
+    public Customer bookings(List<Booking> bookings) {
+        setBookings(bookings);
         return this;
     }
 
@@ -103,23 +114,24 @@ public class Customer {
             return false;
         }
         Customer customer = (Customer) o;
-        return id == customer.id && customerId == customer.customerId && roomId == customer.roomId
-                && Objects.equals(startDate, customer.startDate) && Objects.equals(endDate, customer.endDate);
+        return id == customer.id && Objects.equals(name, customer.name)
+                && Objects.equals(phoneNumber, customer.phoneNumber) && Objects.equals(email, customer.email)
+                && Objects.equals(bookings, customer.bookings);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, customerId, roomId, startDate, endDate);
+        return Objects.hash(id, name, phoneNumber, email, bookings);
     }
 
     @Override
     public String toString() {
         return "{" +
                 " id='" + getId() + "'" +
-                ", customerId='" + getCustomerId() + "'" +
-                ", roomId='" + getRoomId() + "'" +
-                ", startDate='" + getStartDate() + "'" +
-                ", endDate='" + getEndDate() + "'" +
+                ", name='" + getName() + "'" +
+                ", phoneNumber='" + getPhoneNumber() + "'" +
+                ", email='" + getEmail() + "'" +
+                ", bookings='" + getBookings() + "'" +
                 "}";
     }
 }

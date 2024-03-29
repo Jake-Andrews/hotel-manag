@@ -1,11 +1,16 @@
 package com.school.hotelmanagment.model;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Booking {
@@ -13,19 +18,38 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    private String name;
-    private String phoneNumber;
-    private String email;
+    private int customerId;
+    private int roomId;
+    private Date startDate;
+    private Date endDate;
 
-    // exists for jpa
-    protected Booking() {
+    @ManyToOne
+    @JoinColumn(name = "roomId", insertable = false, updatable = false)
+    private Room room;
+    // @JoinColumn is used to specify the foreign key column in the owner of the
+    // relationship
+    // insertable = false and updateable = false are used to make the column
+    // read-only managed by JPA
+    @ManyToOne
+    @JoinColumn(name = "customerId", insertable = false, updatable = false)
+    private Customer customer;
+
+    @OneToMany
+    private List<ProvidedService> providedServices;
+
+    public Booking() {
     }
 
-    public Booking(int id, String name, String phoneNumber, String email) {
+    public Booking(int id, int customerId, int roomId, Date startDate, Date endDate, Room room, Customer customer,
+            List<ProvidedService> providedServices) {
         this.id = id;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
+        this.customerId = customerId;
+        this.roomId = roomId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.room = room;
+        this.customer = customer;
+        this.providedServices = providedServices;
     }
 
     public int getId() {
@@ -36,28 +60,60 @@ public class Booking {
         this.id = id;
     }
 
-    public String getName() {
-        return this.name;
+    public int getCustomerId() {
+        return this.customerId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
-    public String getPhoneNumber() {
-        return this.phoneNumber;
+    public int getRoomId() {
+        return this.roomId;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
     }
 
-    public String getEmail() {
-        return this.email;
+    public Date getStartDate() {
+        return this.startDate;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return this.endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public Room getRoom() {
+        return this.room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public Customer getCustomer() {
+        return this.customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public List<ProvidedService> getProvidedServices() {
+        return this.providedServices;
+    }
+
+    public void setProvidedServices(List<ProvidedService> providedServices) {
+        this.providedServices = providedServices;
     }
 
     public Booking id(int id) {
@@ -65,18 +121,38 @@ public class Booking {
         return this;
     }
 
-    public Booking name(String name) {
-        setName(name);
+    public Booking customerId(int customerId) {
+        setCustomerId(customerId);
         return this;
     }
 
-    public Booking phoneNumber(String phoneNumber) {
-        setPhoneNumber(phoneNumber);
+    public Booking roomId(int roomId) {
+        setRoomId(roomId);
         return this;
     }
 
-    public Booking email(String email) {
-        setEmail(email);
+    public Booking startDate(Date startDate) {
+        setStartDate(startDate);
+        return this;
+    }
+
+    public Booking endDate(Date endDate) {
+        setEndDate(endDate);
+        return this;
+    }
+
+    public Booking room(Room room) {
+        setRoom(room);
+        return this;
+    }
+
+    public Booking customer(Customer customer) {
+        setCustomer(customer);
+        return this;
+    }
+
+    public Booking providedServices(List<ProvidedService> providedServices) {
+        setProvidedServices(providedServices);
         return this;
     }
 
@@ -88,22 +164,28 @@ public class Booking {
             return false;
         }
         Booking booking = (Booking) o;
-        return id == booking.id && Objects.equals(name, booking.name)
-                && Objects.equals(phoneNumber, booking.phoneNumber) && Objects.equals(email, booking.email);
+        return id == booking.id && customerId == booking.customerId && roomId == booking.roomId
+                && Objects.equals(startDate, booking.startDate) && Objects.equals(endDate, booking.endDate)
+                && Objects.equals(room, booking.room) && Objects.equals(customer, booking.customer)
+                && Objects.equals(providedServices, booking.providedServices);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, phoneNumber, email);
+        return Objects.hash(id, customerId, roomId, startDate, endDate, room, customer, providedServices);
     }
 
     @Override
     public String toString() {
         return "{" +
                 " id='" + getId() + "'" +
-                ", name='" + getName() + "'" +
-                ", phoneNumber='" + getPhoneNumber() + "'" +
-                ", email='" + getEmail() + "'" +
+                ", customerId='" + getCustomerId() + "'" +
+                ", roomId='" + getRoomId() + "'" +
+                ", startDate='" + getStartDate() + "'" +
+                ", endDate='" + getEndDate() + "'" +
+                ", room='" + getRoom() + "'" +
+                ", customer='" + getCustomer() + "'" +
+                ", providedServices='" + getProvidedServices() + "'" +
                 "}";
     }
 }

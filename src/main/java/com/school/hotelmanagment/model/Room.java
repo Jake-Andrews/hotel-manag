@@ -1,11 +1,13 @@
 package com.school.hotelmanagment.model;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Room {
@@ -17,14 +19,18 @@ public class Room {
     private String type;
     private double price;
 
-    protected Room() {
+    @OneToMany(mappedBy = "room")
+    private List<Booking> bookings;
+
+    public Room() {
     }
 
-    public Room(int id, int roomNumber, String type, double price) {
+    public Room(int id, int roomNumber, String type, double price, List<Booking> bookings) {
         this.id = id;
         this.roomNumber = roomNumber;
         this.type = type;
         this.price = price;
+        this.bookings = bookings;
     }
 
     public int getId() {
@@ -59,6 +65,14 @@ public class Room {
         this.price = price;
     }
 
+    public List<Booking> getBookings() {
+        return this.bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
     public Room id(int id) {
         setId(id);
         return this;
@@ -79,6 +93,11 @@ public class Room {
         return this;
     }
 
+    public Room bookings(List<Booking> bookings) {
+        setBookings(bookings);
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -87,12 +106,13 @@ public class Room {
             return false;
         }
         Room room = (Room) o;
-        return id == room.id && roomNumber == room.roomNumber && Objects.equals(type, room.type) && price == room.price;
+        return id == room.id && roomNumber == room.roomNumber && Objects.equals(type, room.type) && price == room.price
+                && Objects.equals(bookings, room.bookings);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, roomNumber, type, price);
+        return Objects.hash(id, roomNumber, type, price, bookings);
     }
 
     @Override
@@ -102,6 +122,7 @@ public class Room {
                 ", roomNumber='" + getRoomNumber() + "'" +
                 ", type='" + getType() + "'" +
                 ", price='" + getPrice() + "'" +
+                ", bookings='" + getBookings() + "'" +
                 "}";
     }
 }

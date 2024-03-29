@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class ProvidedService {
@@ -13,18 +15,25 @@ public class ProvidedService {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    private int bookingId;
     private String name;
     private String description;
     private double price;
 
-    protected ProvidedService() {
+    @ManyToOne
+    @JoinColumn(name = "bookingId", insertable = false, updatable = false)
+    private Booking booking;
+
+    public ProvidedService() {
     }
 
-    public ProvidedService(int id, String name, String description, double price) {
+    public ProvidedService(int id, int bookingId, String name, String description, double price, Booking booking) {
         this.id = id;
+        this.bookingId = bookingId;
         this.name = name;
         this.description = description;
         this.price = price;
+        this.booking = booking;
     }
 
     public int getId() {
@@ -33,6 +42,14 @@ public class ProvidedService {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getBookingId() {
+        return this.bookingId;
+    }
+
+    public void setBookingId(int bookingId) {
+        this.bookingId = bookingId;
     }
 
     public String getName() {
@@ -59,8 +76,21 @@ public class ProvidedService {
         this.price = price;
     }
 
+    public Booking getBooking() {
+        return this.booking;
+    }
+
+    public void setBooking(Booking booking) {
+        this.booking = booking;
+    }
+
     public ProvidedService id(int id) {
         setId(id);
+        return this;
+    }
+
+    public ProvidedService bookingId(int bookingId) {
+        setBookingId(bookingId);
         return this;
     }
 
@@ -79,6 +109,11 @@ public class ProvidedService {
         return this;
     }
 
+    public ProvidedService booking(Booking booking) {
+        setBooking(booking);
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -87,22 +122,26 @@ public class ProvidedService {
             return false;
         }
         ProvidedService providedService = (ProvidedService) o;
-        return id == providedService.id && Objects.equals(name, providedService.name)
-                && Objects.equals(description, providedService.description) && price == providedService.price;
+        return id == providedService.id && bookingId == providedService.bookingId
+                && Objects.equals(name, providedService.name)
+                && Objects.equals(description, providedService.description) && price == providedService.price
+                && Objects.equals(booking, providedService.booking);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, price);
+        return Objects.hash(id, bookingId, name, description, price, booking);
     }
 
     @Override
     public String toString() {
         return "{" +
                 " id='" + getId() + "'" +
+                ", bookingId='" + getBookingId() + "'" +
                 ", name='" + getName() + "'" +
                 ", description='" + getDescription() + "'" +
                 ", price='" + getPrice() + "'" +
+                ", booking='" + getBooking() + "'" +
                 "}";
     }
 }
