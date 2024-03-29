@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Customer {
@@ -15,8 +16,11 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @NotNull(message = "name cannot be null")
     private String name;
+    @NotNull(message = "phoneNumber cannot be null")
     private String phoneNumber;
+    @NotNull(message = "email cannot be null")
     private String email;
 
     // mappedBy = "customer" indicates that the customer field in the

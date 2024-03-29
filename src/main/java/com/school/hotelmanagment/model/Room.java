@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Room {
@@ -15,8 +16,11 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @NotNull(message = "roomNumber cannot be null")
     private int roomNumber;
+    @NotNull(message = "type cannot be null")
     private String type;
+    @NotNull(message = "price cannot be null")
     private double price;
 
     @OneToMany(mappedBy = "room")

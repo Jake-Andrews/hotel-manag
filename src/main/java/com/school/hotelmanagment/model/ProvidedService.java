@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class ProvidedService {
@@ -15,9 +16,13 @@ public class ProvidedService {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @NotNull(message = "bookingId cannot be null")
     private int bookingId;
+    @NotNull(message = "name cannot be null")
     private String name;
+    @NotNull(message = "description cannot be null")
     private String description;
+    @NotNull(message = "price cannot be null")
     private double price;
 
     @ManyToOne
