@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.school.hotelmanagment.model.Booking;
-import com.school.hotelmanagment.model.Customer;
 import com.school.hotelmanagment.repository.BookingRepository;
 import com.school.hotelmanagment.repository.CustomerRepository;
 import com.school.hotelmanagment.repository.RoomRepository;
@@ -28,7 +27,7 @@ import org.slf4j.LoggerFactory;
 @Controller
 public class BookingController {
 
-    private static final Logger logger = LoggerFactory.getLogger(BookingService.class);
+    private static final Logger logger = LoggerFactory.getLogger(BookingController.class);
     @Autowired
     private BookingRepository bookingRepository;
     @Autowired

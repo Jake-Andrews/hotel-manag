@@ -126,7 +126,7 @@ public class Room {
                 ", roomNumber='" + getRoomNumber() + "'" +
                 ", type='" + getType() + "'" +
                 ", price='" + getPrice() + "'" +
-                ", bookings='" + getBookings() + "'" +
+                ", bookings='" + (getBookings() != null ? getBookings().toString() : "") + "'" +
                 "}";
     }
 }

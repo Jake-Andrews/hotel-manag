@@ -2,6 +2,7 @@ package com.school.hotelmanagment.model;
 
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,8 +17,6 @@ public class ProvidedServiceModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @NotNull(message = "bookingId cannot be null")
-    private int bookingId;
     @NotNull(message = "name cannot be null")
     private String name;
     @NotNull(message = "description cannot be null")
@@ -25,8 +24,11 @@ public class ProvidedServiceModel {
     @NotNull(message = "price cannot be null")
     private double price;
 
+    @Column(insertable = false, updatable = false)
+    private int bookingId;
+
     @ManyToOne
-    @JoinColumn(name = "bookingId", insertable = false, updatable = false, referencedColumnName = "id")
+    @JoinColumn(name = "bookingId", nullable = false)
     private Booking booking;
 
     public ProvidedServiceModel() {
@@ -146,7 +148,7 @@ public class ProvidedServiceModel {
                 ", name='" + getName() + "'" +
                 ", description='" + getDescription() + "'" +
                 ", price='" + getPrice() + "'" +
-                ", booking='" + getBooking() + "'" +
+                ", booking='" + (getBooking() != null ? getBooking().toString() : "") + "'" +
                 "}";
     }
 }

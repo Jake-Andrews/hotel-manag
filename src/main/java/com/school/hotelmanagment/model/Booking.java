@@ -197,9 +197,10 @@ public class Booking {
                 ", roomId='" + getRoomId() + "'" +
                 ", startDate='" + getStartDate() + "'" +
                 ", endDate='" + getEndDate() + "'" +
-                ", room='" + getRoom() + "'" +
-                ", customer='" + getCustomer() + "'" +
-                ", providedServices='" + getProvidedServices() + "'" +
+                ", room='" + (getRoom() != null ? getRoom().toString() : null) + "'" +
+                ", customer='" + (getCustomer() != null ? getCustomer().toString() : null) + "'" +
+                ", providedServices='" + (getProvidedServices() != null ? getProvidedServices().toString() : null) + "'"
+                +
                 "}";
     }
 }

@@ -33,6 +33,8 @@ public class BookingService {
         return bookings;
     }
 
+    // Used to initialize the customerId and roomId foreign keys in the Booking
+    // entity
     public Booking initalizeBooking(Booking booking, int customerId, int roomId) {
         logger.info("Creating booking with ID: {}", booking.getId());
 

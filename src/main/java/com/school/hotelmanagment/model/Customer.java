@@ -135,7 +135,7 @@ public class Customer {
                 ", name='" + getName() + "'" +
                 ", phoneNumber='" + getPhoneNumber() + "'" +
                 ", email='" + getEmail() + "'" +
-                ", bookings='" + getBookings() + "'" +
+                ", bookings='" + (getBookings() != null ? getBookings() : "") + "'" +
                 "}";
     }
 }
