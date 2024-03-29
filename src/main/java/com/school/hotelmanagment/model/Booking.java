@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,34 +22,40 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @NotNull(message = "customerId cannot be null")
-    private int customerId;
-    @NotNull(message = "roomId cannot be null")
-    private int roomId;
+    // @NotNull(message = "customerId cannot be null")
+    // private int customerId;
+    // @NotNull(message = "roomId cannot be null")
+    // private int roomId;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "startDate cannot be null")
     private Date startDate;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "endDate cannot be null")
     private Date endDate;
 
+    @Column(insertable = false, updatable = false)
+    private int customerId;
+
+    @Column(insertable = false, updatable = false)
+    private int roomId;
+
     @ManyToOne
-    @JoinColumn(name = "roomId", insertable = false, updatable = false)
+    @JoinColumn(name = "roomId", nullable = false)
     private Room room;
-    // @JoinColumn is used to specify the foreign key column in the owner of the
-    // relationship
-    // insertable = false and updateable = false are used to make the column
-    // read-only managed by JPA
+
     @ManyToOne
-    @JoinColumn(name = "customerId", insertable = false, updatable = false)
+    @JoinColumn(name = "customerId", nullable = false)
     private Customer customer;
 
     @OneToMany
-    private List<ProvidedService> providedServices;
+    private List<ProvidedServiceModel> providedServices;
 
     public Booking() {
     }
 
     public Booking(int id, int customerId, int roomId, Date startDate, Date endDate, Room room, Customer customer,
-            List<ProvidedService> providedServices) {
+            List<ProvidedServiceModel> providedServices) {
         this.id = id;
         this.customerId = customerId;
         this.roomId = roomId;
@@ -113,11 +122,11 @@ public class Booking {
         this.customer = customer;
     }
 
-    public List<ProvidedService> getProvidedServices() {
+    public List<ProvidedServiceModel> getProvidedServices() {
         return this.providedServices;
     }
 
-    public void setProvidedServices(List<ProvidedService> providedServices) {
+    public void setProvidedServices(List<ProvidedServiceModel> providedServices) {
         this.providedServices = providedServices;
     }
 
@@ -156,7 +165,7 @@ public class Booking {
         return this;
     }
 
-    public Booking providedServices(List<ProvidedService> providedServices) {
+    public Booking providedServices(List<ProvidedServiceModel> providedServices) {
         setProvidedServices(providedServices);
         return this;
     }

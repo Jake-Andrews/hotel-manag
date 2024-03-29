@@ -11,7 +11,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-public class ProvidedService {
+public class ProvidedServiceModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -26,13 +26,13 @@ public class ProvidedService {
     private double price;
 
     @ManyToOne
-    @JoinColumn(name = "bookingId", insertable = false, updatable = false)
+    @JoinColumn(name = "bookingId", insertable = false, updatable = false, referencedColumnName = "id")
     private Booking booking;
 
-    public ProvidedService() {
+    public ProvidedServiceModel() {
     }
 
-    public ProvidedService(int id, int bookingId, String name, String description, double price, Booking booking) {
+    public ProvidedServiceModel(int id, int bookingId, String name, String description, double price, Booking booking) {
         this.id = id;
         this.bookingId = bookingId;
         this.name = name;
@@ -89,32 +89,32 @@ public class ProvidedService {
         this.booking = booking;
     }
 
-    public ProvidedService id(int id) {
+    public ProvidedServiceModel id(int id) {
         setId(id);
         return this;
     }
 
-    public ProvidedService bookingId(int bookingId) {
+    public ProvidedServiceModel bookingId(int bookingId) {
         setBookingId(bookingId);
         return this;
     }
 
-    public ProvidedService name(String name) {
+    public ProvidedServiceModel name(String name) {
         setName(name);
         return this;
     }
 
-    public ProvidedService description(String description) {
+    public ProvidedServiceModel description(String description) {
         setDescription(description);
         return this;
     }
 
-    public ProvidedService price(double price) {
+    public ProvidedServiceModel price(double price) {
         setPrice(price);
         return this;
     }
 
-    public ProvidedService booking(Booking booking) {
+    public ProvidedServiceModel booking(Booking booking) {
         setBooking(booking);
         return this;
     }
@@ -123,10 +123,10 @@ public class ProvidedService {
     public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof ProvidedService)) {
+        if (!(o instanceof ProvidedServiceModel)) {
             return false;
         }
-        ProvidedService providedService = (ProvidedService) o;
+        ProvidedServiceModel providedService = (ProvidedServiceModel) o;
         return id == providedService.id && bookingId == providedService.bookingId
                 && Objects.equals(name, providedService.name)
                 && Objects.equals(description, providedService.description) && price == providedService.price

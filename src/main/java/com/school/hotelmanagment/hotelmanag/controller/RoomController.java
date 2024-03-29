@@ -1,5 +1,7 @@
 package com.school.hotelmanagment.hotelmanag.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,15 +14,20 @@ import org.springframework.lang.NonNull;
 
 import com.school.hotelmanagment.model.Room;
 import com.school.hotelmanagment.repository.RoomRepository;
+import com.school.hotelmanagment.service.RoomService;
 
 @Controller
 public class RoomController {
     @Autowired
     private RoomRepository roomRepository;
+    @Autowired
+    private RoomService roomService;
 
     @GetMapping("/rooms")
     public String getRoomsPage(Model model) {
-        model.addAttribute("room", new Room());
+        List<Room> rooms = roomService.getAllRooms();
+        System.out.printf("rooms: %s\n", rooms);
+        model.addAttribute("rooms", rooms);
         return "rooms";
     }
 

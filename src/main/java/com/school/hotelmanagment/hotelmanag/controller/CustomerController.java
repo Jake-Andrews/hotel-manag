@@ -1,5 +1,7 @@
 package com.school.hotelmanagment.hotelmanag.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,15 +14,19 @@ import org.springframework.lang.NonNull;
 
 import com.school.hotelmanagment.model.Customer;
 import com.school.hotelmanagment.repository.CustomerRepository;
+import com.school.hotelmanagment.service.CustomerService;
 
 @Controller
 public class CustomerController {
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private CustomerService customerService;
 
     @GetMapping("/customers")
     public String getCustomersPage(Model model) {
-        model.addAttribute("customer", new Customer());
+        List<Customer> customers = customerService.getAllCustomers();
+        model.addAttribute("customers", customers);
         return "customers";
     }
 
