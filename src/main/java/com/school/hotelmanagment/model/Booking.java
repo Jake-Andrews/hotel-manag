@@ -193,14 +193,16 @@ public class Booking {
     public String toString() {
         return "{" +
                 " id='" + getId() + "'" +
-                ", customerId='" + getCustomerId() + "'" +
-                ", roomId='" + getRoomId() + "'" +
+                // ", customerId='" + getCustomerId() + "'" +
+                // ", roomId='" + getRoomId() + "'" +
                 ", startDate='" + getStartDate() + "'" +
                 ", endDate='" + getEndDate() + "'" +
-                ", room='" + (getRoom() != null ? getRoom().toString() : null) + "'" +
-                ", customer='" + (getCustomer() != null ? getCustomer().toString() : null) + "'" +
-                ", providedServices='" + (getProvidedServices() != null ? getProvidedServices().toString() : null) + "'"
-                +
+                // ", room='" + (getRoom() != null ? getRoom().toString() : null) + "'" +
+                // ", customer='" + (getCustomer() != null ? getCustomer().toString() : null) +
+                // "'" +
+                // ", providedServices='" + (getProvidedServices() != null ?
+                // getProvidedServices().toString() : null) + "'"
+                // +
                 "}";
     }
 }
