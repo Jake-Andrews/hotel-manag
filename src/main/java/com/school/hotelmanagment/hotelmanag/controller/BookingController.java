@@ -24,6 +24,10 @@ import org.springframework.lang.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The BookingController class is responsible for handling HTTP requests related to bookings in the hotel management system.
+ * It provides methods for displaying the booking form, adding a new booking, and retrieving all bookings.
+ */
 @Controller
 public class BookingController {
 
@@ -37,6 +41,12 @@ public class BookingController {
     @Autowired
     private RoomRepository roomRepository;
 
+    /**
+     * Displays the new booking form.
+     *
+     * @param model the model object to be used for rendering the view
+     * @return the name of the view to be rendered
+     */
     @GetMapping("/bookings")
     public String showNewBookingForm(Model model) {
         List<Booking> bookings = bookingServices.getAllBookings();
@@ -46,6 +56,15 @@ public class BookingController {
         return "bookings";
     }
 
+    /**
+     * Adds a booking for a customer and a room.
+     *
+     * @param customerId the ID of the customer
+     * @param roomId the ID of the room
+     * @param booking the booking object to be added
+     * @param result the binding result for validation errors
+     * @return the view name to be displayed after adding the booking
+     */
     @SuppressWarnings("null")
     @PostMapping("/bookings")
     public String addBooking(@RequestParam("customerId") int customerId, @RequestParam("roomId") int roomId,

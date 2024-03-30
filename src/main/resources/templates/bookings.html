@@ -33,9 +33,11 @@
     
     <h2>Add a Booking</h2>
     <form th:action="@{/bookings}" method="post">
+        <label for="customerId">Customer ID:</label>
         <select id="customerId" name="customerId">
             <option th:each="customer : ${customers}" th:value="${customer.id}" th:text="${customer.name} + ' (' + ${customer.email} + ')'"></option>
         </select>
+        <label for="roomId">Room ID:</label>
         <select id="roomId" name="roomId">
             <option th:each="room : ${rooms}" th:value="${room.id}" th:text="${room.roomNumber}"></option>
         </select>

@@ -15,6 +15,13 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * This class provides methods to manage bookings in the hotel management
+ * system.
+ * It interacts with the booking repository, customer repository, and room
+ * repository
+ * to perform CRUD operations on bookings.
+ */
 @Service
 public class BookingService {
     private static final Logger logger = LoggerFactory.getLogger(BookingService.class);
@@ -26,6 +33,11 @@ public class BookingService {
     @Autowired
     private RoomRepository roomRepository;
 
+    /**
+     * Retrieves all bookings from the repository.
+     *
+     * @return a list of all bookings
+     */
     public List<Booking> getAllBookings() {
         logger.info("Fetching all bookings from the repository");
         List<Booking> bookings = bookingRepository.findAll();
@@ -33,8 +45,15 @@ public class BookingService {
         return bookings;
     }
 
-    // Used to initialize the customerId and roomId foreign keys in the Booking
-    // entity
+    /**
+     * Initializes the customerId and roomId foreign keys in the Booking entity.
+     *
+     * @param booking    the booking to be initialized
+     * @param customerId the ID of the customer associated with the booking
+     * @param roomId     the ID of the room associated with the booking
+     * @return the initialized booking
+     * @throws RuntimeException if the customer or room is not found
+     */
     public Booking initalizeBooking(Booking booking, int customerId, int roomId) {
         logger.info("Creating booking with ID: {}", booking.getId());
 
@@ -51,12 +70,9 @@ public class BookingService {
         logger.info("Fetched room with ID: {}", roomId);
 
         // Create a new booking and set the customer and room
-        // Booking tempBooking = new Booking();
         booking.setCustomer(customer);
         booking.setRoom(room);
 
-        // Save the booking
-        // bookingRepository.save(booking);
         logger.info("Set foreign ids and returned Booking from method: initializeForeignIds");
         return booking;
     }

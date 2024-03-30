@@ -13,6 +13,10 @@ import com.school.hotelmanagment.model.ProvidedServiceModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * This class represents a service provided by the hotel.
+ * It is responsible for managing the services offered by the hotel, such as initializing a service by associating it with a booking.
+ */
 @Service
 public class ProvidedService {
     private static final Logger logger = LoggerFactory.getLogger(ProvidedService.class);

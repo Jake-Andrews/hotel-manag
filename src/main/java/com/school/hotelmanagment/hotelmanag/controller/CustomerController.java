@@ -16,6 +16,10 @@ import com.school.hotelmanagment.model.Customer;
 import com.school.hotelmanagment.repository.CustomerRepository;
 import com.school.hotelmanagment.service.CustomerService;
 
+/**
+ * The CustomerController class is responsible for handling HTTP requests related to customers.
+ * It provides methods for retrieving customers and adding new customers.
+ */
 @Controller
 public class CustomerController {
     @Autowired
@@ -23,6 +27,12 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
+    /**
+     * Retrieves the customers page.
+     *
+     * @param model the model object to be populated with data
+     * @return the name of the view template to be rendered
+     */
     @GetMapping("/customers")
     public String getCustomersPage(Model model) {
         List<Customer> customers = customerService.getAllCustomers();
@@ -30,6 +40,13 @@ public class CustomerController {
         return "customers";
     }
 
+    /**
+        * Adds a new customer to the system.
+        *
+        * @param customer The customer object to be added.
+        * @param result   The binding result for validation errors.
+        * @return The view name to be displayed after adding the customer.
+        */
     @PostMapping("/customers")
     public String addCustomer(@Validated @NonNull @ModelAttribute Customer customer, BindingResult result) {
         if (result.hasErrors()) {

@@ -16,6 +16,9 @@ import com.school.hotelmanagment.model.Room;
 import com.school.hotelmanagment.repository.RoomRepository;
 import com.school.hotelmanagment.service.RoomService;
 
+/**
+ * Controller class for managing rooms.
+ */
 @Controller
 public class RoomController {
     @Autowired
@@ -23,6 +26,12 @@ public class RoomController {
     @Autowired
     private RoomService roomService;
 
+    /**
+     * Retrieves the rooms page and populates it with a list of all rooms.
+     * 
+     * @param model the model object to be populated with data
+     * @return the name of the view to be rendered
+     */
     @GetMapping("/rooms")
     public String getRoomsPage(Model model) {
         List<Room> rooms = roomService.getAllRooms();
@@ -31,6 +40,13 @@ public class RoomController {
         return "rooms";
     }
 
+    /**
+     * Adds a new room to the database.
+     * 
+     * @param room   the room object to be added
+     * @param result the binding result object for validation errors
+     * @return the name of the view to be rendered
+     */
     @PostMapping("/rooms")
     public String addRoom(@Validated @NonNull @ModelAttribute Room room, BindingResult result) {
         if (result.hasErrors()) {

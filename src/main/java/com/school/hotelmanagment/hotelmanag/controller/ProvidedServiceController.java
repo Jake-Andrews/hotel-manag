@@ -21,6 +21,9 @@ import org.springframework.lang.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Controller class for handling provided services.
+ */
 @Controller
 public class ProvidedServiceController {
 
@@ -32,6 +35,12 @@ public class ProvidedServiceController {
     @Autowired
     private ProvidedService providedService;
 
+    /**
+     * Handles GET requests for the services page.
+     * Retrieves all services and bookings from the database and adds them to the model.
+     * @param model the model object to add attributes to
+     * @return the name of the services view
+     */
     @GetMapping("/services")
     public String getServicesPage(Model model) {
         List<ProvidedServiceModel> services = providedService.getAllServices();
@@ -40,6 +49,14 @@ public class ProvidedServiceController {
         return "services";
     }
 
+    /**
+     * Handles POST requests for adding a new service.
+     * Validates the provided service model and adds it to the database.
+     * @param bookingId the ID of the booking associated with the service
+     * @param service the provided service model to add
+     * @param result the binding result object for validation errors
+     * @return the name of the services view if there are validation errors, otherwise redirects to the services page
+     */
     @SuppressWarnings("null")
     @PostMapping("/services")
     public String addService(@RequestParam("bookingId") int bookingId,
